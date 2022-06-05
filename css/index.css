@@ -19,7 +19,7 @@ body{
     max-height: 20%;
 }
 
-section{
+section, #message{
     height: 100%;
     width: 100%;
     display: flex;
@@ -27,6 +27,55 @@ section{
     justify-content: center;
     position: absolute;
     bottom: 0;
+}
+
+#message{
+    align-items: flex-start;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+#main-message{
+    margin-top: 50px;
+    width: 400px;
+    height: 80px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: row;
+    font-family: 'Open Sans', sans-serif;
+    color: #191970;
+}
+
+.main1{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main2{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    font-weight: 700;
+}
+
+#error-message{
+    margin-top: 2px;
+    font-weight: 300;
+}
+
+.main3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.main1 img{
+    max-width: 50%;
 }
 
 #tech{
@@ -100,7 +149,7 @@ h2{
     font-weight: 700;
 }
 
-h3{
+.form-subtitle{
     margin-top: 2%;
     margin-bottom: 7%;
     font-size: 15px;

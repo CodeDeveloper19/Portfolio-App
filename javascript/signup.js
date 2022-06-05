@@ -17,6 +17,9 @@ const firstName =  document.getElementById("firstname");
 const lastName =  document.getElementById("lastname");
 const userName =  document.getElementById("username");
 
+const errorTitle = document.getElementById("error-title");
+const errorMessage = document.getElementById("error-message");
+
 /********Controls the Password Visibility************* */
 const EYES = [EYE, EYE1, EYE2];
 const PASSWORDS = [PASSWORD, PASSWORD1, PASSWORD2];
@@ -25,6 +28,7 @@ let value;
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+import { getDatabase, ref, set} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCuSoD8mLN0DCSWxMtD22qMU1OTquJBaPs",
@@ -88,6 +92,42 @@ const clearInputFields = () => {
     userName.value = "";
 }
 
+const signUpSuccess = () => {           
+    document.getElementById("message").style.display = "flex";
+    errorTitle.textContent = "Success";
+    errorMessage.textContent = "You have signed up successfully";
+    document.getElementById("main-message").style.backgroundColor = "#98fb98";
+    document.getElementById("message-icon").src = "./images/done.gif";
+}
+
+const signUpError = (errorCode) => {           
+    document.getElementById("message").style.display = "flex";
+    errorTitle.textContent = "Error";
+    switch(errorCode){
+        case "auth/email-already-in-use": 
+            errorMessage.textContent = "Email Address has already been taken";
+            break;
+        
+        case "auth/invalid-email":
+            errorMessage.textContent = "Email Address is invalid";
+            break;
+        
+        default:
+            errorMessage.textContent = "Contact customer service for help";
+    }
+    document.getElementById("main-message").style.backgroundColor = "#FBCEB1";
+    document.getElementById("message-icon").src = "./images/error.gif";
+}
+
+
+const signIn = () => {
+    clearForm();
+    clearInputFields();
+
+    document.getElementById("form1").style.display = "flex";
+    document.getElementById("form2").style.display = "none";
+}
+
 
 /* Event Listeners for Signup, Login, and create buttons */
 CREATEBUTTON.addEventListener("click", (event) => {
@@ -99,24 +139,35 @@ CREATEBUTTON.addEventListener("click", (event) => {
     let purifiedFirstName = DOMPurify.sanitize(firstName.value);
     let purifiedLastName = DOMPurify.sanitize(lastName.value);
 
+    // const db = getDatabase();
+    // set(ref(db, '/'), {
+    //     "namesOfUsers": {
+    //         [purifiedEmailAddress]: {  // Use angle brackets if you want the key to be a variable
+    //             "firstname": purifiedFirstName, 
+    //             "lastname": purifiedLastName
+    //         }
+    //     }
+    // })
+
+
     if (purifiedEmailAddress && purifiedFirstName && purifiedLastName && purifiedPASSWORD1 && purifiedPASSWORD2){
+        event.preventDefault();
         if (purifiedPASSWORD1 == purifiedPASSWORD2 && purifiedPASSWORD1.length >= 8){
             let email = purifiedEmailAddress;
             let password = purifiedPASSWORD1;
+
             createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
+                signUpSuccess();
             })
             .catch((error) => {
                 const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(`${errorCode} error, ${errorMessage}`)
+                signUpError(errorCode);
             });
         } else if (purifiedPASSWORD1 != purifiedPASSWORD2 && purifiedPASSWORD1.length >= 8) {
-            event.preventDefault();
             document.getElementById("error5").textContent = "*The two passwords do not match each other*";
         } else if (purifiedPASSWORD1.length < 8) {
-            event.preventDefault();
             document.getElementById("error4").textContent = "Password is less than 8 digits*";
         }
     }
@@ -131,16 +182,20 @@ SIGNUP.addEventListener("click", () => {
 })
 
 SIGNIN.addEventListener("click", () => {
-    clearForm();
-    clearInputFields();
-
-    document.getElementById("form1").style.display = "flex";
-    document.getElementById("form2").style.display = "none";
+    signIn();
 })
 
 LOGIN.addEventListener("click", () => {
     let purifiedUserName = DOMPurify.sanitize(userName.value);
     let purifiedPASSWORD = DOMPurify.sanitize(PASSWORD.value);
+})
+
+document.getElementById("close-error").addEventListener("click", () => {
+    document.getElementById("message").style.display = "none";
+
+    if (errorTitle.innerHTML == "Success"){
+        signIn();
+    }
 })
 /****************************************************************/
 

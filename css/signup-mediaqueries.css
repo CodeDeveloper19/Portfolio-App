@@ -55,6 +55,17 @@
     }
 }
 
+@media only screen and (max-width: 420px) {
+    #error-message{
+        font-size: 10px;
+    }
+
+    #main-message{
+        width: 300px;
+        height: 70px;
+    }
+}
+
 @media only screen and (max-width: 360px){
     h2{
         font-size: 25px;
@@ -91,6 +102,12 @@
     .two{
         top: 81%;
         left: 5%;
+    }
+    #main-message{
+        height: 60px;
+    }
+    #error-message{
+        font-size: 9px;
     }
 }
 
@@ -147,5 +164,11 @@
     #firstname, #lastname{
         width: 80px;
         padding-right: 40px;
+    }
+    #main-message{
+        height: 50px;
+    }
+    #error-message{
+        font-size: 6px;
     }
 }
