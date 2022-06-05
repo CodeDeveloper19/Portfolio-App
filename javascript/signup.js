@@ -23,6 +23,25 @@ const PASSWORDS = [PASSWORD, PASSWORD1, PASSWORD2];
 
 let value;
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCuSoD8mLN0DCSWxMtD22qMU1OTquJBaPs",
+    authDomain: "myportfolio-app-da38a.firebaseapp.com",
+    projectId: "myportfolio-app-da38a",
+    storageBucket: "myportfolio-app-da38a.appspot.com",
+    messagingSenderId: "401715412547",
+    appId: "1:401715412547:web:70fa0a3cc875b207a71ef6",
+    measurementId: "G-SFSYHQRY3T"
+  };
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth();
+
+
+
 const passwordVisibility = () => {
     if (EYES[value].classList[1] == "fa-eye-slash"){
         EYES[value].classList.replace("fa-eye-slash", "fa-eye");
@@ -82,7 +101,17 @@ CREATEBUTTON.addEventListener("click", (event) => {
 
     if (purifiedEmailAddress && purifiedFirstName && purifiedLastName && purifiedPASSWORD1 && purifiedPASSWORD2){
         if (purifiedPASSWORD1 == purifiedPASSWORD2 && purifiedPASSWORD1.length >= 8){
-            alert("Success");
+            let email = purifiedEmailAddress;
+            let password = purifiedPASSWORD1;
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(`${errorCode} error, ${errorMessage}`)
+            });
         } else if (purifiedPASSWORD1 != purifiedPASSWORD2 && purifiedPASSWORD1.length >= 8) {
             event.preventDefault();
             document.getElementById("error5").textContent = "*The two passwords do not match each other*";
@@ -115,3 +144,13 @@ LOGIN.addEventListener("click", () => {
 })
 /****************************************************************/
 
+//   signInWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     // Signed in 
+//     const user = userCredential.user;
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//   });
