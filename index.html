@@ -51,12 +51,12 @@
                 <div class="name design2">
                     <div class="firstname">
                         <label for="firstname">First Name</label>
-                        <i class="fa-solid fa-user"></i>
+                        <i class="fa-solid fa-user others"></i>
                         <input name="firstname" type="text" id="firstname" required>
                     </div>
                     <div class="lastname">
                         <label for="lastname">Last Name</label>
-                        <i class="fa-solid fa-user two"></i>
+                        <i class="fa-solid fa-user two others"></i>
                         <input name="lastname" type="text" id="lastname" required>
                     </div>
                 </div>
@@ -92,6 +92,26 @@
             </div>
             <div class="main3">
                 <i class="fa-solid fa-xmark" id="close-error"></i>
+            </div>
+        </div>
+    </div>
+    <div id="forgot-section">
+        <div class="forgot-password">
+            <div class="forgot-image">
+                <img src="/images/undraw_forgot_password_re_hxwm.svg" alt="forgot-image" id="forgot-image">
+            </div>
+            <div class="forgot-content">
+                <h2>Forgot your Password?</h2>
+                <p>Don't worry, just enter your email address and we will send you a link to get you back into your account</p>
+                <i class="fa-solid fa-user three"></i>
+                <div class="email-container">
+                    <input type="email" name="forgotten-email" id="forgotten-email" placeholder="Enter your email address">
+                </div>
+                <div class="forgot-container">
+                    <button type="submit" id="reset-password">Reset Password</button>
+                    <button type="submit" id="create-account">Create New Account</button>
+                </div>
+                <a href="#" id="go-back">Go back to sign-in page</a>
             </div>
         </div>
     </div>
