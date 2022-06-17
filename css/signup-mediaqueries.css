@@ -16,10 +16,6 @@
         width: 410px;
         height: 400px;
     }
-    .three{
-        top: 8%;
-        left: 3%;
-    }
     .email-container{
         margin-bottom: 50px;
     }
@@ -78,9 +74,6 @@
     }
     .forgot-content{
         padding: 60px 40px 60px 40px;
-    }
-    .three{
-        top: 7%;
     }
 }
 
@@ -172,9 +165,6 @@
     #go-back, .forgot-container > button{
         font-size: 8px;
     }
-    .three{
-        left: 6%;
-    }
 }
 
 @media only screen and (max-width: 230px){
@@ -211,9 +201,6 @@
     }
     #error-message{
         font-size: 6px;
-    }
-    .three{
-        left: 6%;
     }
     .forgot-password{
         overflow: scroll;
