@@ -58,7 +58,7 @@
         height: 20%;
     }
     .one{
-        bottom: 10%;
+        bottom: 18%;
     }
     .three, #eye4{
         top: 25%;
@@ -204,5 +204,8 @@
     }
     .forgot-password{
         overflow: scroll;
+    }
+    .one{
+        bottom: 15%;
     }
 }
