@@ -55,13 +55,13 @@
         height: 8%;
     }
     .createpassword{
-        height: 20%;
+        height: 25%;
     }
     .one{
         bottom: 18%;
-    }
-    .three, #eye4{
-        top: 25%;
+    } 
+    #eye4, .three{
+        top: 25%;   
     }
     .five, #eye6{
         top: 80%;
