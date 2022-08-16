@@ -44,7 +44,7 @@ This section explains the various libraries and code implementation carried out 
 
 The myPortfolio website is a small-scale application with no back-end, therefore making use of Firebase to handle user authentication was the most viable option.
 
-```
+```js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
@@ -65,7 +65,7 @@ const auth = getAuth();
 
 On Sign-up, the user's details which includes his/her names, email-address, and password are collected and transferred to the Firebase authentication system. But before the communication between the site and the Firebase system commences, the web application checks if the **_password_** and **_confirm password_** values tally with each other. And if they do, the user's details are registered successfully on the Firebase system.
 
-```
+```js
 if (purifiedPASSWORD1 == purifiedPASSWORD2 && purifiedPASSWORD1.length >= 8){
     let email = purifiedEmailAddress;
     let password = purifiedPASSWORD1;
@@ -88,7 +88,7 @@ if (purifiedPASSWORD1 == purifiedPASSWORD2 && purifiedPASSWORD1.length >= 8){
 
 Otherwise, the application will execute different blocks of code depending on the condition which failed.
 
-```
+```js
 else if (purifiedPASSWORD1 != purifiedPASSWORD2 && purifiedPASSWORD1.length >= 8) {
             document.getElementById("message").style.display = "flex";
             errorTitle.textContent = "Error";
@@ -108,7 +108,7 @@ else if (purifiedPASSWORD1 != purifiedPASSWORD2 && purifiedPASSWORD1.length >= 8
 
 After password tally verification, a function called **_createUserWithEmailAndPassword_** is executed to store the user's details on Firebase. If this function returns an error or fails, the function **_signUpError_** is called with the **_errorCode_** passed in as an argument. There are different error cases for the user depending on the value of the **_errorCode_** gotten.
 
-```
+```js
 const signUpError = (errorCode) => {
     document.getElementById("message").style.display = "flex";
     errorTitle.textContent = "Error";
@@ -135,7 +135,7 @@ const signUpError = (errorCode) => {
 
 On successful sign-up, the **_signUpSuccess_** function is called to display a success message to the user.
 
-```
+```js
 const signUpSuccess = () => {
     document.getElementById("message").style.display = "flex";
     errorTitle.textContent = "Success";
@@ -149,7 +149,7 @@ const signUpSuccess = () => {
 
 And an email verification will be sent to the email address that was used to sign-up.
 
-```
+```js
         sendEmailVerification(auth.currentUser)
         .then(() => {
         });
@@ -159,7 +159,7 @@ And an email verification will be sent to the email address that was used to sig
 
 The provided sign-in details of the user, email and password, are sent to the authentication system with the use of a function called **_signInWithEmailAndPassword_**. It checks if a user with that email address exists along with the password.
 
-```
+```js
     let email = purifiedUserName;
     let password = purifiedPASSWORD;
 
@@ -178,7 +178,7 @@ The provided sign-in details of the user, email and password, are sent to the au
 
 If no such user exists or an incorrect password was provided, the error code received is passed into a function called **_SignInError_**. And this function depending on the error code, outputs to the user.
 
-```
+```js
 const signInError = (errorCode) => {
     document.getElementById("message").style.display = "flex";
     errorTitle.textContent = "Error";
@@ -213,7 +213,7 @@ const signInError = (errorCode) => {
 
 But if there was a success in signing in, the **_signInSuccess_** function is called.
 
-```
+```js
 const signInSuccess = () => {
     document.getElementById("message").style.display = "flex";
     errorTitle.textContent = "Success!";
@@ -228,7 +228,7 @@ const signInSuccess = () => {
 
 When the user clicks the forgot password option and provides his or her email address, the page sends the email address to Firebase for a password reset through the use of a function called **_sendPasswordResetEmail_**.
 
-```
+```js
     sendPasswordResetEmail(auth, email)
   .then(() => {
     document.getElementById("message").style.display = "flex";
@@ -245,7 +245,7 @@ When the user clicks the forgot password option and provides his or her email ad
 
 Any error gotten from Firebase calls the **_ResetError_** function with the **_errorCode_** value passed as an argument.
 
-```
+```js
 const ResetError = (errorCode) => {
     document.getElementById("message").style.display = "flex";
     errorTitle.textContent = "Error";
@@ -270,13 +270,13 @@ const ResetError = (errorCode) => {
 
 The use of a sanitizer JavaScript library called DOMPurify helps to prevent XXS attacks on the site through user inputs. XXS attacks will be the most common type of attack the site might likely face.
 
-```
+```js
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.8/purify.min.js" integrity="sha512-M72KfQy4kPuLYC6CeTrN0eA17U1lXEMrr5qEJC/40CLdZGC3HpwPS0esQLqBHnxty2FIcuNdP9EqwSOCLEVJXQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 ```
 
 It is called at all click events of the submit buttons to check user inputs before the input values are used or moved to firebase.
 
-```
+```js
     let purifiedPASSWORD1 = DOMPurify.sanitize(PASSWORD1.value);
     let purifiedPASSWORD2 = DOMPurify.sanitize(PASSWORD2.value);
     let purifiedEmailAddress = DOMPurify.sanitize(emailAddress.value);
